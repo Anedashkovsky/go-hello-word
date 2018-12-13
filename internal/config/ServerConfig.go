@@ -5,7 +5,8 @@ import (
 	"log"
 )
 
-type ServerConfig struct {
+// Server struct to store unmarshalled config data
+type Server struct {
 	rawConfig rawServerConfig
 }
 
@@ -14,12 +15,13 @@ type rawServerConfig struct {
 	Host string `json:"host"`
 }
 
-const CONFIG_NAME = "server.json"
-const ENV_NAME = "ENV"
+const configName = "server.json"
+const envName = "ENV"
 
-func (serverConfig *ServerConfig) Init() {
-	configHelper := new(ConfigHelper)
-	configHelper.Init(CONFIG_NAME, ENV_NAME)
+// Init create dependent instances of structs, take config file from disk and unmarshall it
+func (serverConfig *Server) Init() {
+	configHelper := new(Helper)
+	configHelper.Init(configName, envName)
 
 	error := json.Unmarshal(configHelper.GetConfig(), &serverConfig.rawConfig)
 
@@ -28,10 +30,12 @@ func (serverConfig *ServerConfig) Init() {
 	}
 }
 
-func (serverConfig *ServerConfig) GetPort() string {
+// GetPort return the port for server
+func (serverConfig *Server) GetPort() string {
 	return serverConfig.rawConfig.Port
 }
 
-func (serverConfig *ServerConfig) GetHost() string {
+// GetHost return host for server
+func (serverConfig *Server) GetHost() string {
 	return serverConfig.rawConfig.Host
 }

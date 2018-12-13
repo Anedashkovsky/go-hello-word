@@ -7,18 +7,21 @@ import (
 	"path/filepath"
 )
 
-type ConfigHelper struct {
+// Helper is a struct to stor anv and path to config to read it
+type Helper struct {
 	path string
 	env  string
 }
 
-func (configHelper *ConfigHelper) Init(configName string, envName string) {
+// Init inititalizes struct with given configname and env
+func (configHelper *Helper) Init(configName string, envName string) {
 	envChecker := new(checker.EnvChecker)
 	configHelper.env = envChecker.GetEnv(envName)
 	configHelper.path = filepath.Join(configHelper.getConfigFolder(), configHelper.env, configName)
 }
 
-func (configHelper *ConfigHelper) GetConfig() []byte {
+// GetConfig read file from disk and return byte array to unmarshall it
+func (configHelper *Helper) GetConfig() []byte {
 	config, error := ioutil.ReadFile(configHelper.path)
 
 	if error != nil {
@@ -28,7 +31,7 @@ func (configHelper *ConfigHelper) GetConfig() []byte {
 	return config
 }
 
-func (configHelper *ConfigHelper) getConfigFolder() string {
+func (configHelper *Helper) getConfigFolder() string {
 	path, error := filepath.Abs("../config")
 
 	if error != nil {

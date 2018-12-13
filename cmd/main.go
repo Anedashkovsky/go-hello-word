@@ -6,7 +6,7 @@ import (
 )
 
 func main() {
-	var serverConfig = new(config.ServerConfig)
+	var serverConfig = new(config.Server)
 	serverConfig.Init()
 	fmt.Println("ServerConfig=", serverConfig.GetHost(), serverConfig.GetPort())
 }
