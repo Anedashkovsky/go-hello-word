@@ -2,7 +2,7 @@ package config
 
 import (
 	"encoding/json"
-	"fmt"
+	"log"
 )
 
 type ServerConfig struct {
@@ -24,7 +24,7 @@ func (serverConfig *ServerConfig) Init() {
 	error := json.Unmarshal(configHelper.GetConfig(), &serverConfig.rawConfig)
 
 	if error != nil {
-		fmt.Println("Error unmarshalling config", error)
+		log.Fatalln("Error unmarshalling config", error)
 	}
 }
 
