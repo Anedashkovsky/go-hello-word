@@ -1,7 +1,9 @@
 package server
 
 import (
+	"encoding/json"
 	"fmt"
+	"github.com/gorilla/mux"
 	"go-hello-word/internal/config"
 	"log"
 	"net/http"
@@ -21,16 +23,28 @@ func (server *Server) Init(config *config.Server) {
 func (server *Server) Start() {
 	address := server.config.GetHost() + ":" + server.config.GetPort()
 	fmt.Println("Starting server at " + address)
-	http.HandleFunc("/api/", server.createHandler())
-	http.HandleFunc("/", server.createNotFoundHandler())
+
+	router := mux.NewRouter()
+	router.HandleFunc("/api/hello", server.createHandler()).Methods("GET")
+
+	http.Handle("/", router)
 
 	log.Fatal(http.ListenAndServe(address, nil))
 }
 
+type response struct {
+	Data string `json:"data"`
+}
+
 func (server *Server) createHandler() http.HandlerFunc {
 	return func(responceWriter http.ResponseWriter, request *http.Request) {
+		responceWriter.Header().Set("COntent-type", "application/json")
+		responceWriter.WriteHeader(http.StatusOK)
+
 		fmt.Println(request.URL)
-		fmt.Fprint(responceWriter, "Hello there!")
+
+		responceData := response{Data: "Hello there!"}
+		json.NewEncoder(responceWriter).Encode(responceData)
 	}
 }
 
