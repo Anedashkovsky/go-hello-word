@@ -38,7 +38,7 @@ type response struct {
 
 func (server *Server) createHandler() http.HandlerFunc {
 	return func(responceWriter http.ResponseWriter, request *http.Request) {
-		responceWriter.Header().Set("COntent-type", "application/json")
+		responceWriter.Header().Set("Content-type", "application/json")
 		responceWriter.WriteHeader(http.StatusOK)
 
 		fmt.Println(request.URL)
