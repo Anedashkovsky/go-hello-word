@@ -9,6 +9,11 @@ import (
 // EnvChecker Struct to make operations at env variables like read
 type EnvChecker struct{}
 
+// NewEnvChecker Create env checker
+func NewEnvChecker() *EnvChecker {
+	return &EnvChecker{}
+}
+
 // GetEnv Get value of env variable
 func (envChecker *EnvChecker) GetEnv(envName string) string {
 	env, error := envChecker.getEnv(envName)

@@ -15,11 +15,11 @@ type rawServerConfig struct {
 	Host string `json:"host"`
 }
 
-const configName = "server.json"
-const envName = "ENV"
-
 // Init create dependent instances of structs, take config file from disk and unmarshall it
 func (serverConfig *Server) Init() {
+	const configName = "server.json"
+	const envName = "ENV"
+
 	configHelper := new(Helper)
 	configHelper.Init(configName, envName)
 

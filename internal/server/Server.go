@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/gorilla/mux"
 	"go-hello-word/internal/config"
+	"go-hello-word/internal/trelloConnector"
 	"log"
 	"net/http"
 )
@@ -26,6 +27,7 @@ func (server *Server) Start() {
 
 	router := mux.NewRouter()
 	router.HandleFunc("/api/hello", server.createHandler()).Methods("GET")
+	router.HandleFunc("/api/board", server.createGetBoardHandler()).Methods("GET")
 
 	http.Handle("/", router)
 
@@ -44,6 +46,21 @@ func (server *Server) createHandler() http.HandlerFunc {
 		fmt.Println(request.URL)
 
 		responceData := response{Data: "Hello there!"}
+		json.NewEncoder(responceWriter).Encode(responceData)
+	}
+}
+
+func (server *Server) createGetBoardHandler() http.HandlerFunc {
+	return func(responceWriter http.ResponseWriter, request *http.Request) {
+		var connector *trelloconnector.TrelloConnector
+		connector = trelloconnector.NewTrelloConnector()
+
+		responceWriter.Header().Set("Content-type", "application/json")
+		responceWriter.WriteHeader(http.StatusOK)
+
+		fmt.Println(request.URL)
+
+		responceData := connector.GetBoardData()
 		json.NewEncoder(responceWriter).Encode(responceData)
 	}
 }
