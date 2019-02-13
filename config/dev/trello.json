@@ -1,4 +1,4 @@
 {
-   "baseUrl": "https://trello",
-   "boardUrl": "/board"
+   "baseUrl": "https://api.trello.com/1",
+   "boardApi": "/boards"
 }
