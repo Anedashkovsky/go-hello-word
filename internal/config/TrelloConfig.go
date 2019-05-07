@@ -33,11 +33,12 @@ func NewTrelloConfig() *TrelloConfig {
 	return trelloConfig
 }
 
-// GetBaseUrl Return base url from config
-func (trelloConfig *TrelloConfig) GetBaseUrl() string {
+// GetBaseURL Return base url from config
+func (trelloConfig *TrelloConfig) GetBaseURL() string {
 	return trelloConfig.rawConfig.BaseURL
 }
 
-func (trelloConfig *TrelloConfig) GetBoardApiUrl() string {
+// GetBoardAPIURL Return trello board api url
+func (trelloConfig *TrelloConfig) GetBoardAPIURL() string {
 	return trelloConfig.rawConfig.BoardAPI
 }

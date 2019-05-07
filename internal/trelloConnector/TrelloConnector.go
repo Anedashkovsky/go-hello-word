@@ -75,8 +75,8 @@ func (trelloConnector *TrelloConnector) generateBoardRequest() string {
 
 	var stringBuilder strings.Builder
 
-	stringBuilder.WriteString(trelloConnector.config.GetBaseUrl())
-	stringBuilder.WriteString(trelloConnector.config.GetBoardApiUrl())
+	stringBuilder.WriteString(trelloConnector.config.GetBaseURL())
+	stringBuilder.WriteString(trelloConnector.config.GetBoardAPIURL())
 	stringBuilder.WriteString("/")
 	stringBuilder.WriteString(trelloConnector.boardID)
 	stringBuilder.WriteString(DELIMITER)
